@@ -232,21 +232,22 @@ class ViagemController extends Controller
                         $user_badge['score'] = $user_badge['score'] + 1 ;
                         if($badge['finalScore'] == $user_badge['score']){
                             $user_badge['state'] = true;
+                            $user['xp'] = $user['xp'] + 300;
                         }
                     }
                 }
 
+                // ESTA IGUAL AO DO EXEMPLAR
+                // if($badge['name'] == 'Disponibilidade'){
 
-                if($badge['name'] == 'Disponibilidade'){
-
-                    //VERIFICA TODOS OS BADGES DE DISPONIBILIDADE
-                    if($user_badge['state'] == false){
-                        $user_badge['score'] = $user_badge['score'] + 1 ;
-                        if($badge['finalScore'] == $user_badge['score']){
-                            $user_badge['state'] = true;
-                        }
-                    }
-                }
+                //     //VERIFICA TODOS OS BADGES DE DISPONIBILIDADE
+                //     if($user_badge['state'] == false){
+                //         $user_badge['score'] = $user_badge['score'] + 1 ;
+                //         if($badge['finalScore'] == $user_badge['score']){
+                //             $user_badge['state'] = true;
+                //         }
+                //     }
+                // }
             }
         }
 
@@ -264,6 +265,7 @@ class ViagemController extends Controller
                         $user_badge['score'] = $user_badge['score'] + 1 ;
                         if($badge['finalScore'] == $user_badge['score']){
                             $user_badge['state'] = true;
+                            $user['xp'] = $user['xp'] + 300;
                         }
                     }
                 }
@@ -309,11 +311,44 @@ class ViagemController extends Controller
                             $user_badge['score'] = $user_badge['score'] + 1 ;
                             if($badge['finalScore'] == $user_badge['score']){
                                 $user_badge['state'] = true;
+                                $user['xp'] = $user['xp'] + 300;
                             }
                         }
                     }
                 }
             }
+
+            //CLIENTE DÁ REVIEW AO CONDUTOR
+            $dataReview = ['nota'=>5, 'comentario'=>'gostei muito', 'user_id'=>1, 'viagems_id'=>1];
+            $review = Review::create($dataReview);
+
+            $dataReview = ['nota'=>5, 'comentario'=>'adorei', 'user_id'=>1, 'viagems_id'=>1];
+            $review = Review::create($dataReview);
+
+            $reviewsViagem = Review::where('viagems_id'->$viagem->id)->get();
+            foreach($reviewsViagem as $reviewViagem){
+
+                foreach($user_badges as $user_badge){
+
+                    $badge = Badge::find($user_badge->badge_id);
+                    if($badge['name'] == 'Avaliação'){
+
+                        if($reviewViagem['nota'] == 5){
+
+                            //VERIFICA TODOS OS BADGES DE EXEMPLAR
+                            if($user_badge['state'] == false){
+                                $user_badge['score'] = $user_badge['score'] + 1 ;
+                                if($badge['finalScore'] == $user_badge['score']){
+                                    $user_badge['state'] = true;
+                                    $user['xp'] = $user['xp'] + 300;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
         }
 
         //VOLUME TEM DE SER REVISTO

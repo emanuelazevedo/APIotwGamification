@@ -24,6 +24,8 @@ class CreateProdutosTable extends Migration
 
             $table->integer('largura');
 
+            $table->integer('pesoVol');
+
             $table->string('foto')->nullable();
 
             $table->integer('viagems_id')->unsigned();
