@@ -159,9 +159,10 @@ class ViagemController extends Controller
                 //se for a primeira viagem dá crachá ao user
                 // givePoint(new ViagemDone($viagem));
                 $user['xp'] = $user['xp'] + 10;
+
             }
         }
-
+        $user->save();
         $viagem->save();
 
         // // missoes de viagens e produtos
@@ -234,6 +235,7 @@ class ViagemController extends Controller
                             $user_badge['state'] = true;
                             $user['xp'] = $user['xp'] + 300;
                         }
+                        $user_badge->save();
                     }
                 }
 
@@ -267,22 +269,34 @@ class ViagemController extends Controller
                             $user_badge['state'] = true;
                             $user['xp'] = $user['xp'] + 300;
                         }
+                        $user_badge->save();
                     }
                 }
 
-                /*
+
                 //VOLUME AINDA TEM DE SER TRATADO NA PARTE DO PRODUTO NA BD
                 if($badge['name'] == 'Volume'){
-                    $lastViagens = Viagem::where()
-                    //VERIFICA TODOS OS BADGES DE
-                    if($user_badge['state'] == false){
-                        $user_badge['score'] = $user_badge['score'] + 1 ;
+                    $lastViagens = Viagem::where('user_id', $viagem->user_id)->take(10)->get();
+                    $produtos = array();
+                    foreach($lastViagens as $viagem){
+                        $produtos[] = Produto::where('viagems_id', $viagem->id)->get();
+                    }
+                    $listaProdutos = collect($produtos)->sortBy('pesoVol')->toArray();
+                    $lastProduto = last($listaProdutos[0]);
 
-                        if($badge['finalScore'] == $user_badge['score']){
-                            $user_badge['state'] = true;
+                    if(($listaProdutos[0][0]['pesoVol'] - $lastProduto['pesoVol']) > 100){
+                        //VERIFICA TODOS OS BADGES DE VOLUME
+                        if($user_badge['state'] == false){
+                            $user_badge['score'] = $user_badge['score'] + 1 ;
+
+                            if($badge['finalScore'] == $user_badge['score']){
+                                $user_badge['state'] = true;
+                            }
+                            $user_badge->save();
                         }
                     }
-                }*/
+
+                }
 
                 //DISTANCIA AINDA TEM DE SER TRATADO NA PARTE DA VIAGEM NA BD E NO REACT
                 //2 DO LOCAIS AINDA TEM DE SER TRATADO NA PARTE DA VIAGEM NA BD E NO REACT
@@ -313,6 +327,7 @@ class ViagemController extends Controller
                                 $user_badge['state'] = true;
                                 $user['xp'] = $user['xp'] + 300;
                             }
+                            $user_badge->save();
                         }
                     }
                 }
@@ -325,7 +340,9 @@ class ViagemController extends Controller
             $dataReview = ['nota'=>5, 'comentario'=>'adorei', 'user_id'=>1, 'viagems_id'=>1];
             $review = Review::create($dataReview);
 
-            $reviewsViagem = Review::where('viagems_id'->$viagem->id)->get();
+
+            $reviewsViagem = Review::where('viagems_id', $viagem->id)->get();
+
             foreach($reviewsViagem as $reviewViagem){
 
                 foreach($user_badges as $user_badge){
@@ -342,6 +359,7 @@ class ViagemController extends Controller
                                     $user_badge['state'] = true;
                                     $user['xp'] = $user['xp'] + 300;
                                 }
+                                $user_badge->save();
                             }
                         }
                     }
@@ -350,6 +368,8 @@ class ViagemController extends Controller
 
 
         }
+
+
 
         //VOLUME TEM DE SER REVISTO
         //DISTANCIA PRECISA DA API DA GOOGLE

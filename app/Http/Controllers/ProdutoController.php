@@ -56,7 +56,7 @@ class ProdutoController extends Controller
         //
 
         $data = $request->only(['altura', 'comprimento', 'largura', 'nome', 'viagems_id']);
-        $data['pesoVol'] = (int)$data['comprimento']*(int)$data['altura']*(int)$data['largura']*250;
+        $data['pesoVol'] = (int)$data['comprimento']*(int)$data['altura']*(int)$data['largura']*0.25;
         $data['user_id'] = Auth::user()->id;
         if($request->hasFile('foto')){
             $foto = $request->file('foto');
