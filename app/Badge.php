@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Badge extends Model
 {
     //
-    protected $fillable = ['name', 'description', 'icon', 'level', 'finalResult'];
+    protected $fillable = ['name', 'description', 'level', 'finalResult'];
 }

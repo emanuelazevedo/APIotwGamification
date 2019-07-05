@@ -17,7 +17,7 @@ class CreateBadgesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('icon')->nullable();
+            // $table->string('icon')->nullable();
             $table->integer('finalScore');
             $table->tinyInteger('level');
             $table->timestamps();
