@@ -298,7 +298,7 @@ class ViagemController extends Controller
                     //VERIFICA TODOS OS BADGES DE EXEMPLAR
                     if($user_badge['state'] == false){
                         $user_badge['score'] = $user_badge['score'] + $viagem->pesoVol ;
-                        if($badge['finalScore'] == $user_badge['score']){
+                        if($badge['finalScore'] >= $user_badge['score']){
                             $user_badge['state'] = true;
                             $user['xp'] = $user['xp'] + 300;
                         }
