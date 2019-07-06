@@ -276,24 +276,33 @@ class ViagemController extends Controller
 
                 //VOLUME AINDA TEM DE SER TRATADO NA PARTE DO PRODUTO NA BD
                 if($badge['name'] == 'Volume'){
-                    $lastViagens = Viagem::where('user_id', $viagem->user_id)->take(10)->get();
-                    $produtos = array();
-                    foreach($lastViagens as $viagem){
-                        $produtos[] = Produto::where('viagems_id', $viagem->id)->get();
-                    }
-                    $listaProdutos = collect($produtos)->sortBy('pesoVol')->toArray();
-                    $lastProduto = last($listaProdutos[0]);
+                    // $lastViagens = Viagem::where('user_id', $viagem->user_id)->take(10)->get();
+                    // $produtos = array();
+                    // foreach($lastViagens as $viagem){
+                    //     $produtos[] = Produto::where('viagems_id', $viagem->id)->get();
+                    // }
+                    // $listaProdutos = collect($produtos)->sortBy('pesoVol')->toArray();
+                    // $lastProduto = last($listaProdutos[0]);
 
-                    if(($listaProdutos[0][0]['pesoVol'] - $lastProduto['pesoVol']) > 100){
-                        //VERIFICA TODOS OS BADGES DE VOLUME
-                        if($user_badge['state'] == false){
-                            $user_badge['score'] = $user_badge['score'] + 1 ;
+                    // if(($listaProdutos[0][0]['pesoVol'] - $lastProduto['pesoVol']) > 100){
+                    //     //VERIFICA TODOS OS BADGES DE VOLUME
+                    //     if($user_badge['state'] == false){
+                    //         $user_badge['score'] = $user_badge['score'] + 1 ;
 
-                            if($badge['finalScore'] == $user_badge['score']){
-                                $user_badge['state'] = true;
-                            }
-                            $user_badge->save();
+                    //         if($badge['finalScore'] == $user_badge['score']){
+                    //             $user_badge['state'] = true;
+                    //         }
+                    //         $user_badge->save();
+                    //     }
+                    // }
+                    //VERIFICA TODOS OS BADGES DE EXEMPLAR
+                    if($user_badge['state'] == false){
+                        $user_badge['score'] = $user_badge['score'] + $viagem->pesoVol ;
+                        if($badge['finalScore'] == $user_badge['score']){
+                            $user_badge['state'] = true;
+                            $user['xp'] = $user['xp'] + 300;
                         }
+                        $user_badge->save();
                     }
 
                 }

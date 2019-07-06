@@ -40,21 +40,21 @@ class BadgesTableSeeder extends Seeder
 
         \App\Badge::create([
             'name' => 'Volume',
-            'description' => 'Realizar 12 entregas com diferentes volumes de produtos',
+            'description' => 'Entregar 12 kg em peso volumetrico',
             // 'icon' => Image::make('public/images/badges/badge-volume.png'),
             'level' => 1,
             'finalScore' => 12,
         ]);
         \App\Badge::create([
             'name' => 'Volume',
-            'description' => 'Realizar 20 entregas com diferentes volumes de produtos',
+            'description' => 'Entregar 20 kg em peso volumetrico',
             // 'icon' => 'viagens',
             'level' => 2,
             'finalScore' => 20,
         ]);
         \App\Badge::create([
             'name' => 'Volume',
-            'description' => 'Realizar 28 entregas com diferentes volumes de produtos',
+            'description' => 'Entregar 28 kg em peso volumetrico',
             // 'icon' => 'viagens',
             'level' => 3,
             'finalScore' => 28,
