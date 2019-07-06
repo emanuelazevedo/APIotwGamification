@@ -244,7 +244,7 @@ class UserController extends Controller
 
     public function leaderboardPoints(){
         $allUsers = DB::table('users')
-            ->orderBy('reputation', 'desc')
+            ->orderBy('xp', 'desc')
             ->get();
 
         $authUser = Auth::user();
@@ -260,7 +260,7 @@ class UserController extends Controller
         }
 
         $users = DB::table('users')
-            ->orderBy('reputation', 'desc')
+            ->orderBy('xp', 'desc')
             ->take(10)
             ->get();
 
