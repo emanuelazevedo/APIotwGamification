@@ -56,10 +56,12 @@ class UserController extends Controller
         }
         $user['level'] = $level;
 
-        $haveBadges = UserBadge::where('user_id', $user->id)->where('state', true)->get();
-        $badges = array();
-        foreach($haveBadges as $haveBadge){
-            $badges = Badge::find($haveBadge->id);
+        $badges = UserBadge::where('user_id', $user->id)->get();
+
+        foreach($badges as $badge){
+            $badgeInfo = Badge::find($badge->badge_id);
+            $badge['percentage'] = ($badge['score']*100)/$badgeInfo['finalScore'];
+            $badge->badge;
         }
 
         $user['badges'] = $badges;

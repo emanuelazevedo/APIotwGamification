@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Produto::class);
     }
+
+    public function userBadge()
+    {
+        return $this->hasMany(UserBadge::class);
+    }
 }
