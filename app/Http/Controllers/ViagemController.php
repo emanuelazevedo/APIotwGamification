@@ -234,6 +234,7 @@ class ViagemController extends Controller
                         if($badge['finalScore'] == $user_badge['score']){
                             $user_badge['state'] = true;
                             $user['xp'] = $user['xp'] + 300;
+                            $user_badge['score'] = 0;
                         }
                         $user_badge->save();
                     }
@@ -268,6 +269,7 @@ class ViagemController extends Controller
                         if($badge['finalScore'] == $user_badge['score']){
                             $user_badge['state'] = true;
                             $user['xp'] = $user['xp'] + 300;
+                            $user_badge['score'] = 0;
                         }
                         $user_badge->save();
                     }
@@ -301,6 +303,7 @@ class ViagemController extends Controller
                         if($badge['finalScore'] >= $user_badge['score']){
                             $user_badge['state'] = true;
                             $user['xp'] = $user['xp'] + 300;
+                            $user_badge['score'] = 0;
                         }
                         $user_badge->save();
                     }
@@ -335,6 +338,7 @@ class ViagemController extends Controller
                             if($badge['finalScore'] == $user_badge['score']){
                                 $user_badge['state'] = true;
                                 $user['xp'] = $user['xp'] + 300;
+                                $user_badge['score'] = 0;
                             }
                             $user_badge->save();
                         }
@@ -367,6 +371,7 @@ class ViagemController extends Controller
                                 if($badge['finalScore'] == $user_badge['score']){
                                     $user_badge['state'] = true;
                                     $user['xp'] = $user['xp'] + 300;
+                                    $user_badge['score'] = 0;
                                 }
                                 $user_badge->save();
                             }
@@ -379,8 +384,6 @@ class ViagemController extends Controller
         }
 
 
-
-        //VOLUME TEM DE SER REVISTO
         //DISTANCIA PRECISA DA API DA GOOGLE
         //EXPLORADOR E VICIADO TAMBEM PRECISAM DA API DA GOOGLE
         //LEAL PRECISA DE VERIFICAR O DONO DO PRODUTO

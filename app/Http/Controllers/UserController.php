@@ -41,18 +41,29 @@ class UserController extends Controller
 
         $user = Auth::user();
 
+        $user->produtos;
+        $user->viagems;
         // $user['xp'] = $user->getPoints();
         $level = 1;
+        $user['currentLvlMax'] = 5000;
+        $user['currentLvlXPPerc'] = ($user['xp'] * 100)/$user['currentLvlMax'];
 
         // apenas 5 niveis
         if($user['xp']>=5000 && $user['xp']<9999){
             $level = 2;
+            $user['currentLvlMax'] = 10000;
+            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/10000;
         } else if($user['xp']>=10000 && $user['xp']<24999){
             $level = 3;
+            $user['currentLvlMax'] = 25000;
+            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/25000;
         } else if($user['xp']>=25000 && $user['xp']<999999){
             $level = 4;
+            $user['currentLvlMax'] = 1000000;
+            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/1000000;
         } else if($user['xp']>=1000000){
             $level = 5;
+            $user['currentLvlXPPerc'] = $user['xp'];
         }
         $user['level'] = $level;
 
