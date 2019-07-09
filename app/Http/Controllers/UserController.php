@@ -41,8 +41,15 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-        $user->produtos;
+        // $user->produtos;
         $user->viagems;
+
+        $viagemsProdutos = Viagem::where('user_id', $user->id)->get();
+        foreach($viagemsProdutos as $viagens){
+            $viagens['produtos'] = Produto::where('viagems_id', $viagens['id'])->get();
+        }
+        $user['viagemsProdutos'] = $viagemsProdutos;
+
         // $user['xp'] = $user->getPoints();
         $level = 1;
         $user['currentLvlMax'] = 5000;
@@ -76,6 +83,20 @@ class UserController extends Controller
         }
 
         $user['badges'] = $badges;
+
+        /*teste*/
+        // $badgesViagens = Badge::where('name', 'Entrega')->orWhere('name', 'Volume')->orWhere('name', 'Distância')->get();
+
+        // foreach($badgesViagens as $badge){
+        //     // $badgeData = UserBadge::where('user_id', $user->id)->where('badge_id', $badge->id)->get();
+        //     // $badge['percentage'] = ($badgeData['score']*100)/$badge['finalScore'];
+        //     $badge->userBadge;
+        // }
+        // foreach($badgesViagens as $badge){
+        //     // dd($badge->userBadge->score);
+        //     $badge['percentage'] = ($badge['user_badge']['score']*100)/$badge['finalScore'];
+        // }
+        // $user['badgesData'] = $badgesViagens;
 
         return $user;
     }
