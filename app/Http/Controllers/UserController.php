@@ -52,23 +52,23 @@ class UserController extends Controller
 
         // $user['xp'] = $user->getPoints();
         $level = 1;
-        $user['currentLvlMax'] = 5000;
+        $user['currentLvlMax'] = 100;
         $user['currentLvlXPPerc'] = ($user['xp'] * 100)/$user['currentLvlMax'];
 
         // apenas 5 niveis
-        if($user['xp']>=5000 && $user['xp']<9999){
+        if($user['xp']>=100 && $user['xp']<299){
             $level = 2;
-            $user['currentLvlMax'] = 10000;
-            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/10000;
-        } else if($user['xp']>=10000 && $user['xp']<24999){
+            $user['currentLvlMax'] = 300;
+            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/300;
+        } else if($user['xp']>=300 && $user['xp']<699){
             $level = 3;
-            $user['currentLvlMax'] = 25000;
-            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/25000;
-        } else if($user['xp']>=25000 && $user['xp']<999999){
+            $user['currentLvlMax'] = 700;
+            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/700;
+        } else if($user['xp']>=700 && $user['xp']<1399){
             $level = 4;
-            $user['currentLvlMax'] = 1000000;
-            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/1000000;
-        } else if($user['xp']>=1000000){
+            $user['currentLvlMax'] = 1400;
+            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/1400;
+        } else if($user['xp']>=1400){
             $level = 5;
             $user['currentLvlXPPerc'] = $user['xp'];
         }
@@ -178,16 +178,25 @@ class UserController extends Controller
         // $user['xp'] = $user->getPoints();
 
         $level = 1;
+        $user['currentLvlMax'] = 100;
+        $user['currentLvlXPPerc'] = ($user['xp'] * 100)/$user['currentLvlMax'];
 
         // apenas 5 niveis
-        if($user['xp']>=5000 && $user['xp']<9999){
+        if($user['xp']>=100 && $user['xp']<299){
             $level = 2;
-        } else if($user['xp']>=10000 && $user['xp']<24999){
+            $user['currentLvlMax'] = 300;
+            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/300;
+        } else if($user['xp']>=300 && $user['xp']<699){
             $level = 3;
-        } else if($user['xp']>=25000 && $user['xp']<999999){
+            $user['currentLvlMax'] = 700;
+            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/700;
+        } else if($user['xp']>=700 && $user['xp']<1399){
             $level = 4;
-        } else if($user['xp']>=1000000){
+            $user['currentLvlMax'] = 1400;
+            $user['currentLvlXPPerc'] = ($user['xp'] * 100)/1400;
+        } else if($user['xp']>=1400){
             $level = 5;
+            $user['currentLvlXPPerc'] = $user['xp'];
         }
         $user['level'] = $level;
 
@@ -282,6 +291,11 @@ class UserController extends Controller
             ->get();
 
         $authUser = Auth::user();
+        $badgesCount = UserBadge::where('user_id', $authUser->id)->where('state', true)->count();
+        $authUser['totalBadges'] = $badgesCount;
+        $reviews = Review::where('user_id', $authUser['id'])->avg('nota');
+        $authUser['reviews'] = $reviews;
+
 
         $aux = 0;
 
@@ -297,6 +311,12 @@ class UserController extends Controller
             ->orderBy('xp', 'desc')
             ->take(10)
             ->get();
+
+        foreach($users as $user){
+            $reviews = Review::where('user_id', $user->id)->avg('nota');
+            // $users->put('review',$reviews);
+            $user->review=(int)$reviews;
+        }
 
         // $users = $users->take(10);
         // tentar ver se continuo isto no frontend

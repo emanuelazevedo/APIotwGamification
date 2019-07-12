@@ -233,7 +233,7 @@ class ViagemController extends Controller
                         $user_badge['score'] = $user_badge['score'] + 1 ;
                         if($badge['finalScore'] == $user_badge['score']){
                             $user_badge['state'] = true;
-                            $user['xp'] = $user['xp'] + 300;
+                            $user['xp'] = $user['xp'] + 25;
                             $user_badge['score'] = 0;
                         }
                         $user_badge->save();
@@ -268,7 +268,7 @@ class ViagemController extends Controller
                         $user_badge['score'] = $user_badge['score'] + 1 ;
                         if($badge['finalScore'] == $user_badge['score']){
                             $user_badge['state'] = true;
-                            $user['xp'] = $user['xp'] + 300;
+                            $user['xp'] = $user['xp'] + 25;
                             $user_badge['score'] = 0;
                         }
                         $user_badge->save();
@@ -302,7 +302,7 @@ class ViagemController extends Controller
                         $user_badge['score'] = $user_badge['score'] + $viagem->pesoVol ;
                         if($badge['finalScore'] >= $user_badge['score']){
                             $user_badge['state'] = true;
-                            $user['xp'] = $user['xp'] + 300;
+                            $user['xp'] = $user['xp'] + 25;
                             $user_badge['score'] = 0;
                         }
                         $user_badge->save();
@@ -337,7 +337,7 @@ class ViagemController extends Controller
                             $user_badge['score'] = $user_badge['score'] + 1 ;
                             if($badge['finalScore'] == $user_badge['score']){
                                 $user_badge['state'] = true;
-                                $user['xp'] = $user['xp'] + 300;
+                                $user['xp'] = $user['xp'] + 25;
                                 $user_badge['score'] = 0;
                             }
                             $user_badge->save();
@@ -350,8 +350,8 @@ class ViagemController extends Controller
             $dataReview = ['nota'=>5, 'comentario'=>'gostei muito', 'user_id'=>1, 'viagems_id'=>1];
             $review = Review::create($dataReview);
 
-            $dataReview = ['nota'=>5, 'comentario'=>'adorei', 'user_id'=>1, 'viagems_id'=>1];
-            $review = Review::create($dataReview);
+            // $dataReview = ['nota'=>5, 'comentario'=>'adorei', 'user_id'=>1, 'viagems_id'=>1];
+            // $review = Review::create($dataReview);
 
 
             $reviewsViagem = Review::where('viagems_id', $viagem->id)->get();
@@ -370,7 +370,7 @@ class ViagemController extends Controller
                                 $user_badge['score'] = $user_badge['score'] + 1 ;
                                 if($badge['finalScore'] == $user_badge['score']){
                                     $user_badge['state'] = true;
-                                    $user['xp'] = $user['xp'] + 300;
+                                    $user['xp'] = $user['xp'] + 25;
                                     $user_badge['score'] = 0;
                                 }
                                 $user_badge->save();
